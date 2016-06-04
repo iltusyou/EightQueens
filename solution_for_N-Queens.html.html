@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script>
+
+        var Queens = new Array();//global variable
+        var output = new Array();
+        var n;//global variable
+        var count = 1;
+
+        var printQueen = function (Queens) {
+            //for (var i = 0; i < n; i++) {
+            //    for (var j = 0; j < n; j++) {
+            //        if (j == Queens[i]) {
+            //            document.write(Q);
+            //        }
+            //    }
+            //    //document.write(Queens[i]+" ");
+            //}
+            //document.write("<br>");
+
+            document.write("Solution" + count + "<br>");
+            count++;
+
+            for (var i = 0; i < n; i++) {
+                for (var j = 0; j < n; j++) {
+                    if (j == Queens[i])
+                        document.write("Q ");
+                    else
+                        document.write(". ");
+                }
+                document.write("<br>");
+            }
+            for (var i = 0; i < n;i++)
+                document.write("--");
+            document.write("<br>");
+        }
+
+        var canPlaceQueen = function (x,y) {
+            //x: 第幾個皇后
+            //y: 放置的位置            
+            for (var i = 0; i < x; i++) {
+                /*判定橫、左上斜、左下斜是否已經放置皇后*/
+                if (y == Queens[i] || (x - i) == (y - Queens[i]) || (x - i) == (Queens[i] - y)) {                    
+                    return false;                    
+                }
+            }            
+            return true;
+        }      
+        
+        var placeQueen = function (r) {
+            for (var i = 0; i < n; i++) {
+                if (canPlaceQueen(r,i)) {
+                    Queens[r] = i;
+                    if (r == n - 1) {                        
+                        printQueen(Queens);                        
+                    }                        
+                    else {
+                        placeQueen(r + 1)                       
+                    }                        
+                }
+            }
+        }
+
+        var solveNQueens = function () {
+            var x = prompt("請輸入棋盤大小");
+            n = x;
+            Queens = Array(n);            
+            var r = 0;            
+            placeQueen(r);
+        };
+
+        
+    </script>
+</head>
+<body onload="solveNQueens()">
+
+</body>
+</html>
